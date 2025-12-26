@@ -8,8 +8,11 @@
 
 template<typename T>
 class RingBuffer {
+public:
     RingBuffer(int capacity) :
     capacity_(capacity) {}
+
+    RingBuffer(const RingBuffer&) = default;
 
     void push(const T& item) {
         std::lock_guard<std::mutex> lock(mutex_);

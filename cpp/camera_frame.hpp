@@ -10,6 +10,6 @@
 
 struct CameraFrame {
     int64_t timestamp_ns;
-    cv::Mat image;
+    cv::Mat frame;
 };
 #endif //CAMERA_FRAME_HPP

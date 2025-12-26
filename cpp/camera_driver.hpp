@@ -12,14 +12,16 @@
 
 class CameraDriver {
 
-    CameraDriver(int camera_id, int height, int width);
+    CameraDriver(int camera_id, int height, int width, int fps, RingBuffer<CameraFrame>& buffer);
     ~CameraDriver();
 
     void start();
     void stop();
 
+    void captureLoop();
+
 private:
-    RingBuffer<CameraFrame> buffer_;
+    RingBuffer<CameraFrame>& buffer_;
     int camera_id_;
     int height_;
     int width_;
