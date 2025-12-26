@@ -9,7 +9,7 @@
 template<typename T>
 class RingBuffer {
 public:
-    RingBuffer(int capacity) :
+    explicit RingBuffer(int capacity) :
     capacity_(capacity) {}
 
     RingBuffer(const RingBuffer&) = default;

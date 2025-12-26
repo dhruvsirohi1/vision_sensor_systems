@@ -5,6 +5,7 @@
 #pragma once
 #include<opencv2/opencv.hpp>
 #include "camera_driver.hpp"
+#include "camera_frame.hpp"
 
 using Clock = std::chrono::steady_clock;
 
@@ -13,7 +14,8 @@ camera_id_(camera_id),
 height_(height),
 width_(width),
 fps_(fps),
-buffer_(buffer) {}
+buffer_(buffer),
+running_(false){}
 
 CameraDriver::~CameraDriver() {
     stop();
@@ -31,7 +33,7 @@ void CameraDriver::stop() {
     }
 }
 
-void CameraDriver::captureLoop() {
+void CameraDriver::captureLoop() const {
     cv::VideoCapture cap(camera_id_);
 
     if (!cap.isOpened()) {
@@ -60,7 +62,7 @@ void CameraDriver::captureLoop() {
         camera_frame.frame = frame.clone();
 
         buffer_.push(camera_frame);
-        std::this_thread::sleep_for(start + frame_period);
+        std::this_thread::sleep_for(frame_period);
     }
     cap.release();
 }
