@@ -29,9 +29,9 @@ private:
     std::thread worker_;
 
     std::default_random_engine rng_;
-    std::normal_distribution<double> normal_distribution_;
+    std::normal_distribution<double> noise_;
 
-    double gyro_bias[3];
-    double accel_bias[3];
+    double gyro_bias_[3];
+    double accel_bias_[3];
 };
 #endif //VIRTUAL_IMU_HPP
