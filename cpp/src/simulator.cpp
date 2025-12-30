@@ -2,7 +2,7 @@
 // Created by Dhruv Sirohi on 12/30/25.
 //
 
-#include "simulator.hpp"
+#include "../control/simulator.hpp"
 
 Simulator::Simulator(double dt, VehicleModel model) :
 dt_(dt), model_(model) {}

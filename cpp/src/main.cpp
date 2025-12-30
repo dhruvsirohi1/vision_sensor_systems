@@ -2,9 +2,11 @@
 // Created by Dhruv Sirohi on 12/25/25.
 //
 
+#include<iostream>
+
 #include "camera_driver.hpp"
 #include "ring_buffer.hpp"
-#include<iostream>
+#include "simulator.hpp"
 #include "virtual_imu.hpp"
 
 int main() {
@@ -39,5 +41,30 @@ int main() {
     }
 
     camera.stop();
+
+    // Test Simulator
+
+    VehicleModel model;
+    Simulator simulator(0.01, model);
+
+    State x0{};
+    x0.x = 0.0;
+    x0.y = 0.0;
+    x0.theta = 0.0;
+    x0.v = 0.0;
+
+    simulator.reset(x0);
+
+    Control u{};
+    u.a = 0.5;
+    u.omega = 0.2;
+
+    for (int i = 0; i < 100; i++) {
+        simulator.step(u);
+
+        auto curr_state = simulator.currentState();
+        std::cout << curr_state.x << ", " << curr_state.y
+        << ", " << curr_state.theta << std::endl;
+    }
     return 0;
 }
