@@ -16,4 +16,11 @@ struct Control {
     double a; // acceleration
     double omega; // yaw rate
 };
+
+class VehicleModel {
+public:
+    State step(const State& x,
+               const Control& u,
+               double dt) const;
+};
 #endif //VEHICLE_MODEL_HPP
