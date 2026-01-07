@@ -13,6 +13,11 @@
 #include <deque>
 #include <mutex>
 
+enum class SyncResult {
+    OK,
+    FAILED
+};
+
 class TimeSynchronizer {
 public:
     TimeSynchronizer(RingBuffer<CameraFrame>& cam_buffer,
@@ -21,7 +26,7 @@ public:
 
     ~TimeSynchronizer();
 
-    void process();
+    SyncResult process();
 
 private:
 

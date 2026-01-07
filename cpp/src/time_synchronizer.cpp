@@ -13,13 +13,12 @@ TimeSynchronizer::TimeSynchronizer(
     imu_buffer_(imu_buffer),
     synchronized_buffer_(synchronized_buffer) {}
 
-void TimeSynchronizer::process() {
+SyncResult TimeSynchronizer::process() {
     CameraFrame cam_frame = camera_buffer_.pop();
 
     ImuMeasurement imu;
     if (!interpIMU(cam_frame.timestamp_ns, imu)) {
-        std::cerr << "Could not interpolate imu measurement...";
-        return;
+        return SyncResult::FAILED;
     }
 
     SynchronizedPacket synchronized_packet;
@@ -28,6 +27,7 @@ void TimeSynchronizer::process() {
     synchronized_packet.camera = cam_frame;
 
     synchronized_buffer_.push(synchronized_packet);
+    return SyncResult::OK;
 }
 
 bool TimeSynchronizer::interpIMU(uint64_t target_ts, ImuMeasurement &out) {
