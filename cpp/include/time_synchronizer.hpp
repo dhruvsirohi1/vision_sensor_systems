@@ -29,9 +29,9 @@ private:
     RingBuffer<CameraFrame>& camera_buffer_;
     RingBuffer<ImuMeasurement>& imu_buffer_;
     RingBuffer<SynchronizedPacket>& synchronized_buffer_;
+    std::deque<ImuMeasurement> imu_window_;
 
-
-    std::mutex mtx_;
+    std::mutex imu_mtx_;
     std::condition_variable cv_;
 };
 #endif //TIME_SYNCHRONIZER_HPP

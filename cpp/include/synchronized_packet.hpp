@@ -15,3 +15,4 @@ struct SynchronizedPacket {
     ImuMeasurement imu;
 };
 #endif //SYNCHRONIZED_PACKET_HPP
+
